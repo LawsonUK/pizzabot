@@ -2,12 +2,11 @@ const Grid = require('./grid')
 
 class PizzaBot {
   constructor(deliveryInstructions) {
-    this.deliveryInstructions = this.decipherInstructions(
-      deliveryInstructions
-    ).deliveryInstructions
+    const setup = this.decipherInstructions(deliveryInstructions)
+    this.Grid = new Grid(setup.gridSize, setup.houses)
     this.currentLocation = [0, 0]
     this.outputLogInstructions = ''
-    this.defaultInstructions = `5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)`
+    this.defaultInstructions = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
   }
 
   decipherInstructions = instructions => {
@@ -15,35 +14,45 @@ class PizzaBot {
     if (!instructions) {
       throw new Error(
         `Sorry you have not provided any instructions for PizzaBot...PizzaBot sad. 
-        Please provide instructions as follows "${this.defaultInstructions}"`
+        ${this.defaultInstructions}`
       )
     }
 
-    // parse string into array
-    const instructionsArray = instructions
+    // sanitize instructions
+    const sanitizedInstructions = instructions
       .trim()
+      .replace(/ /g, '')
       .toLowerCase()
-      .replace(', ', ',')
-      .split(' ')
 
-    // check to see if the array is empty
-    if (instructionsArray.length === 0) {
+    // get grid size from the argument string
+    const gridSize = sanitizedInstructions.substr(
+      0,
+      sanitizedInstructions.indexOf('(')
+    )
+
+    // check to see if the grid size has been provided
+    if (!gridSize.includes('x')) {
       throw new Error(
-        `Sorry you have not provided correctly formatted instructions to PizzaBot...PizzaBot very sad. 
-        Please provide instructions as follows "${this.defaultInstructions}"`
+        `Sorry you have not provided a grid size to PizzaBot or it has not be correctly formatted...PizzaBot very sad. 
+        ${this.defaultInstructions}`
       )
     }
-
-    // array is populated, proceed with telling PizzaBot the Grid size
 
     // check that the instructions are in the correct format
+    const houses = sanitizedInstructions
+      .substr(
+        sanitizedInstructions.indexOf('('),
+        sanitizedInstructions.length - 1
+      )
+      .trim()
+    console.log('PizzaBot -> houses', houses)
 
-    const result = {
-      gridSize: '',
-      deliveryInstructions: instructions,
+    const setup = {
+      gridSize,
+      houses,
     }
 
-    return result
+    return setup
   }
 
   move = instruction => {}

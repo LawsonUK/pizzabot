@@ -1,7 +1,39 @@
 class House {
-  constructor(location = null, numberOfPizzas = 1) {
+  constructor(
+    location = null,
+    numberOfPizzasOrdered = 1,
+    numberOfPizzasReceived = 0
+  ) {
     this.location = location
-    this.numberOfPizzas = numberOfPizzas
+    this.numberOfPizzasOrdered = numberOfPizzasOrdered
+    this.numberOfPizzasReceived = numberOfPizzasReceived
+  }
+
+  getLocation = () => {
+    return this.location
+  }
+
+  setLocation = location => {
+    this.location = location
+    return this.location
+  }
+
+  getNumberOfPizzasOrdered = () => {
+    return this.getNumberOfPizzasOrdered
+  }
+
+  setNumberOfPizzasOrdered = numberOfPizzasOrdered => {
+    this.numberOfPizzasOrdered = numberOfPizzasOrdered
+    return this.numberOfPizzasOrdered
+  }
+
+  getNumberOfPizzasReceived = () => {
+    return this.numberOfPizzasReceived
+  }
+
+  setNumberOfPizzasReceived = numberOfPizzasReceived => {
+    this.numberOfPizzasReceived = numberOfPizzasReceived
+    return this.numberOfPizzasReceived
   }
 }
 

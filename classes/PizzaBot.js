@@ -1,17 +1,19 @@
-const Grid = require('./grid')
+const Grid = require('./Grid')
 
 class PizzaBot {
   constructor(deliveryInstructions) {
     const formattedInstructions = this.formatInstructions(
       this.validateInstructions(deliveryInstructions)
     )
+
     this.Grid = new Grid(
       formattedInstructions.gridSize,
       formattedInstructions.locations
     )
+
     this.currentLocation = [0, 0]
-    this.outputLogInstructions = ''
-    this.defaultInstructions = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
+    this.outputLogInstructions = 'test'
+    this.message = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
   }
 
   validateInstructions = instructions => {
@@ -19,7 +21,7 @@ class PizzaBot {
     if (!instructions) {
       throw new Error(
         `Sorry you have not provided any instructions for PizzaBot. PizzaBot sad. 
-        ${this.defaultInstructions}`
+        ${this.message}`
       )
     }
 
@@ -35,30 +37,32 @@ class PizzaBot {
       sanitizedInstructions.indexOf('(')
     )
 
-    // check to see if the grid size is in the correct format
+    // throw error if grid size is not in the correct format
     if (!gridSize.match(/^[0-9]*x[0-9]*/)) {
       throw new Error(
         `Sorry you have not provided a grid size to PizzaBot in the correct format. PizzaBot very sad. 
-        ${this.defaultInstructions}`
+        ${this.message}`
       )
     }
 
     // retrieve locations
     const locations = sanitizedInstructions
+      .trim()
       .substr(
         sanitizedInstructions.indexOf('('),
         sanitizedInstructions.length - 1
       )
-      .trim()
 
-    // check that the instructions are in the correct format
+    // throw error if instructions are not in the correct format
     // TODO fix regex
     if (!locations.match(/(?:\([0-9]*,[0-9]*\))+/)) {
       throw new Error(
         `Sorry you have not provided locations to PizzaBot in the correct format. PizzaBot just wants to work.
-        ${this.defaultInstructions}`
+        ${this.message}`
       )
     }
+
+    // TODO check that no locations are outside of the grid
 
     const validatedInstructions = {
       gridSize,
@@ -76,15 +80,6 @@ class PizzaBot {
     const locations = validatedInstructions.locations
       .replace(/\)\(/g, ') (')
       .split(' ')
-      .map(houseLocation => {
-        return Array.from(
-          houseLocation
-            .replace(/\(/, '')
-            .replace(/\)/, '')
-            .split(',')
-            .map(coord => parseInt(coord))
-        )
-      })
 
     const formattedInstructions = {
       gridSize,

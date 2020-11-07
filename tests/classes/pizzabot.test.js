@@ -1,4 +1,4 @@
-const PizzaBot = require('../../classes/pizzabot')
+const PizzaBot = require('../../classes/Pizzabot')
 
 let args = null
 
@@ -17,7 +17,7 @@ test(`should setup the PizzaBot object with argument instructions`, () => {
   //   '(0,0)(1,3)(4,4)(4,2)(4,2)(0,1)(3,2)(2,3)(4,1)'
   // )
   expect(pizzabot.currentLocation).toEqual([0, 0])
-  expect(pizzabot.outputLogInstructions).toBe('')
+  expect(pizzabot.outputLogInstructions).toBe('test')
 })
 
 /**
@@ -45,3 +45,19 @@ test(`should test to see PizzaBot's validateInstructions method throws an error 
 //     new PizzaBot(test_args)
 //   }).toThrowError(/not provided locations/)
 // })
+
+/**
+ * Delivery Tests
+ */
+
+// Example Test
+test(`should produce an output of ENNNDEEEND using input string of "5x5 (1, 3) (4, 4)"`, () => {
+  const pizzaBot = new PizzaBot(args)
+  expect(pizzaBot.outputLogInstructions).toBe('test')
+})
+
+// Code Challenge Test
+test(`should produce an output of DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD using input string of "5x5 (0, 0) (1, 3) (4,4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`, () => {
+  const pizzaBot = new PizzaBot(args)
+  expect(pizzaBot.outputLogInstructions).toBe('test')
+})

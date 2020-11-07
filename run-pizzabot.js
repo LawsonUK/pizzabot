@@ -1,4 +1,3 @@
 const yargs = require('yargs')
-const { hideBin } = require('yargs/helpers')
-const PizzaBot = require('./classes/pizzabot')
+const PizzaBot = require('./classes/Pizzabot')
 new PizzaBot(yargs.parse()._[0])

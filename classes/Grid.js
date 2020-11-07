@@ -1,4 +1,4 @@
-const House = require('./house')
+const House = require('./House')
 
 class Grid {
   constructor(size = [5, 5], locations = []) {
@@ -7,15 +7,35 @@ class Grid {
   }
 
   createHousesWithOrders = (locations = []) => {
-    // check for duplicate points as they are one house with multiple pizza orders
-
-    let houses = []
-    if (locations.length > 0) {
-      houses = locations.map(location => {
-        return new House()
-      })
+    const getLocationOccurences = (array, value) => {
+      return array.filter(v => v === value).length
     }
 
+    let houses = []
+    let locationsChecked = []
+    if (locations.length > 0) {
+      houses = locations.map(location => {
+        // find how many times the location is mentioned to get the household's order amount
+        const numberOfPizzasOrdered = getLocationOccurences(locations, location)
+
+        // check if location is in locations checked array
+        if (getLocationOccurences(locationsChecked, location) === 0) {
+          locationsChecked.push(location)
+
+          return new House(
+            // format string into array containing integers
+            Array.from(
+              location
+                .replace(/\(/, '')
+                .replace(/\)/, '')
+                .split(',')
+                .map(coord => parseInt(coord))
+            ),
+            numberOfPizzasOrdered
+          )
+        }
+      })
+    }
     return houses
   }
 
@@ -28,9 +48,14 @@ class Grid {
     return this.size
   }
 
-  getHouses = () => {}
+  getHouses = () => {
+    return this.houses
+  }
 
-  setHouses = houses => {}
+  setHouses = houses => {
+    this.houses = houses
+    return this.houses
+  }
 }
 
 module.exports = Grid

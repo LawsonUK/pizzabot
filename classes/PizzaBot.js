@@ -1,7 +1,12 @@
 const Grid = require('./Grid')
 
 class PizzaBot {
+  message = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
+
   constructor(deliveryInstructions) {
+    this.currentLocation = [0, 0]
+    this.outputLogInstructions = 'test'
+
     const formattedInstructions = this.formatInstructions(
       this.validateInstructions(deliveryInstructions)
     )
@@ -11,9 +16,8 @@ class PizzaBot {
       formattedInstructions.locations
     )
 
-    this.currentLocation = [0, 0]
-    this.outputLogInstructions = 'test'
-    this.message = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
+    // The Grid is setup and the houses mapped...PizzaBot assemble!
+    this.go()
   }
 
   validateInstructions = instructions => {
@@ -87,6 +91,12 @@ class PizzaBot {
     }
 
     return formattedInstructions
+  }
+
+  go = () => {
+    this.Grid.getHouses().map(house => {
+      console.log('Go to house ', house)
+    })
   }
 
   move = instruction => {}

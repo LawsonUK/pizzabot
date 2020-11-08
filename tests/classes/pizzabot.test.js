@@ -13,15 +13,14 @@ beforeAll(() => {
 test(`should setup the PizzaBot object with argument instructions`, () => {
   const pizzabot = new PizzaBot(args)
   expect(pizzabot.Grid.size).toEqual([5, 5])
-  // expect(pizzabot.Grid.houses).toBe(
-  //   '(0,0)(1,3)(4,4)(4,2)(4,2)(0,1)(3,2)(2,3)(4,1)'
-  // )
   expect(pizzabot.currentLocation).toEqual([0, 0])
-  expect(pizzabot.outputLogInstructions).toBe('test')
+  expect(pizzabot.outputLogInstructions).toBe(
+    'DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD'
+  )
 })
 
 /**
- * Validation Tests
+ * Method Tests
  */
 
 test(`should test to see PizzaBot's validateInstructions method throws an error if no instructions are provided`, () => {
@@ -46,18 +45,23 @@ test(`should test to see PizzaBot's validateInstructions method throws an error 
 //   }).toThrowError(/not provided locations/)
 // })
 
+test(`should test`, () => {})
+
 /**
  * Delivery Tests
  */
 
 // Example Test
 test(`should produce an output of ENNNDEEEND using input string of "5x5 (1, 3) (4, 4)"`, () => {
-  const pizzaBot = new PizzaBot(args)
-  expect(pizzaBot.outputLogInstructions).toBe('test')
+  const test_args = '5x5 (1, 3) (4, 4)'
+  const pizzaBot = new PizzaBot(test_args)
+  expect(pizzaBot.outputLogInstructions).toBe('ENNNDEEEND')
 })
 
 // Code Challenge Test
 test(`should produce an output of DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD using input string of "5x5 (0, 0) (1, 3) (4,4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`, () => {
   const pizzaBot = new PizzaBot(args)
-  expect(pizzaBot.outputLogInstructions).toBe('test')
+  expect(pizzaBot.outputLogInstructions).toBe(
+    'DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD'
+  )
 })

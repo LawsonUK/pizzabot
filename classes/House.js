@@ -19,7 +19,7 @@ class House {
   }
 
   getNumberOfPizzasOrdered = () => {
-    return this.getNumberOfPizzasOrdered
+    return this.numberOfPizzasOrdered
   }
 
   setNumberOfPizzasOrdered = numberOfPizzasOrdered => {

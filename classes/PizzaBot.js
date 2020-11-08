@@ -1,12 +1,10 @@
 const Grid = require('./Grid')
 
 class PizzaBot {
-  message = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
+  currentLocation = [0, 0]
+  outputLogInstructions = ''
 
   constructor(deliveryInstructions) {
-    this.currentLocation = [0, 0]
-    this.outputLogInstructions = 'test'
-
     const formattedInstructions = this.formatInstructions(
       this.validateInstructions(deliveryInstructions)
     )
@@ -16,16 +14,21 @@ class PizzaBot {
       formattedInstructions.locations
     )
 
-    // The Grid is setup and the houses mapped...PizzaBot assemble!
+    // The Grid is setup and the Houses are mapped...PizzaBot assemble!
     this.go()
+
+    // PizzaBot...show the good work you have done for Slice
+    this.displayPizzaBotInstructions()
   }
 
   validateInstructions = instructions => {
+    const message = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
+
     // check that instructions are not empty
     if (!instructions) {
       throw new Error(
         `Sorry you have not provided any instructions for PizzaBot. PizzaBot sad. 
-        ${this.message}`
+        ${message}`
       )
     }
 
@@ -45,7 +48,7 @@ class PizzaBot {
     if (!gridSize.match(/^[0-9]*x[0-9]*/)) {
       throw new Error(
         `Sorry you have not provided a grid size to PizzaBot in the correct format. PizzaBot very sad. 
-        ${this.message}`
+        ${message}`
       )
     }
 
@@ -62,7 +65,7 @@ class PizzaBot {
     if (!locations.match(/(?:\([0-9]*,[0-9]*\))+/)) {
       throw new Error(
         `Sorry you have not provided locations to PizzaBot in the correct format. PizzaBot just wants to work.
-        ${this.message}`
+        ${message}`
       )
     }
 
@@ -95,16 +98,87 @@ class PizzaBot {
 
   go = () => {
     this.Grid.getHouses().map(house => {
-      console.log('Go to house ', house)
+      // you're not at the location yet PizzaBot
+      if (house.getLocation.toString() !== this.currentLocation.toString()) {
+        this.move(house)
+      }
+
+      // deliver those delicious Slice pizzas PizzaBot
+      house.getLocation().toString() === this.currentLocation.toString() &&
+        this.deliverPizza(house)
     })
   }
 
-  move = instruction => {}
+  move = house => {
+    const xDiff = house.getLocation()[0] - this.getCurrentLocation()[0]
+    const yDiff = house.getLocation()[1] - this.getCurrentLocation()[1]
 
-  deliverPizza = () => {}
+    // Move East
+    if (xDiff > 0) {
+      for (let i = 0; i < xDiff; i++) {
+        const currentLocation = this.getCurrentLocation()
+        this.setCurrentLocation([currentLocation[0] + 1, currentLocation[1]])
+        this.updateOutputLogInstructions('E')
+      }
+    }
+
+    // Move West
+    if (xDiff < 0) {
+      for (let i = 0; i > xDiff; i--) {
+        const currentLocation = this.getCurrentLocation()
+        this.setCurrentLocation([currentLocation[0] - 1, currentLocation[1]])
+        this.updateOutputLogInstructions('W')
+      }
+    }
+
+    // Move North
+    if (yDiff > 0) {
+      for (let i = 0; i < yDiff; i++) {
+        const currentLocation = this.getCurrentLocation()
+        this.setCurrentLocation([currentLocation[0], currentLocation[1] + 1])
+        this.updateOutputLogInstructions('N')
+      }
+    }
+
+    // Move South
+    if (yDiff < 0) {
+      for (let i = 0; i > yDiff; i--) {
+        const currentLocation = this.getCurrentLocation()
+        this.setCurrentLocation([currentLocation[0], currentLocation[1] - 1])
+        this.updateOutputLogInstructions('S')
+      }
+    }
+  }
+
+  deliverPizza = house => {
+    const diff =
+      house.getNumberOfPizzasOrdered() - house.getNumberOfPizzasReceived()
+
+    // update household with number of pizzas delivered
+    house.setNumberOfPizzasReceived(diff)
+
+    // update PizzaBot's delivery log
+    for (let i = 0; i < diff; i++) {
+      this.updateOutputLogInstructions('D')
+    }
+  }
 
   updateOutputLogInstructions = instructionString => {
     this.outputLogInstructions += instructionString
+  }
+
+  displayPizzaBotInstructions = () => {
+    console.log(`PizzaBot Instructions ${this.outputLogInstructions}`)
+    this.setCurrentLocation([0, 0])
+  }
+
+  getCurrentLocation = () => {
+    return this.currentLocation
+  }
+
+  setCurrentLocation = location => {
+    this.currentLocation = location
+    return this.currentLocation
   }
 }
 

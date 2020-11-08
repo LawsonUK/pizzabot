@@ -36,6 +36,9 @@ class Grid {
         }
       })
     }
+    // clean array
+    houses = houses.filter(house => house !== undefined)
+
     return houses
   }
 

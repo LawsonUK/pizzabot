@@ -4,9 +4,9 @@ class PizzaBot {
   currentLocation = [0, 0]
   outputLogInstructions = ''
 
-  constructor(deliveryInstructions) {
+  constructor(gridAndLocations) {
     const formattedInstructions = this.formatInstructions(
-      this.validateInstructions(deliveryInstructions)
+      this.validateInstructions(gridAndLocations)
     )
 
     this.Grid = new Grid(
@@ -14,7 +14,7 @@ class PizzaBot {
       formattedInstructions.locations
     )
 
-    // The Grid is setup and the Houses are mapped...PizzaBot assemble!
+    // The Grid is setup and the Houses needing pizza are identified...PizzaBot assemble!
     this.go()
 
     // PizzaBot...show the good work you have done for Slice
@@ -68,8 +68,6 @@ class PizzaBot {
         ${message}`
       )
     }
-
-    // TODO check that no locations are outside of the grid
 
     const validatedInstructions = {
       gridSize,
@@ -168,7 +166,7 @@ class PizzaBot {
   }
 
   displayPizzaBotInstructions = () => {
-    console.log(`PizzaBot Instructions ${this.outputLogInstructions}`)
+    console.log(`PizzaBot Instructions: ${this.outputLogInstructions}`)
     this.setCurrentLocation([0, 0])
   }
 

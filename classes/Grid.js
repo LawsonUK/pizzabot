@@ -3,11 +3,14 @@ const House = require('./House')
 class Grid {
   constructor(size = [5, 5], locations = []) {
     this.size = size
-    this.houses = this.createHousesWithOrders(locations)
+    this.houses = this.validateHouseLocationsAgainstGridSize(
+      this.createHousesWithOrders(locations)
+    )
   }
 
   createHousesWithOrders = (locations = []) => {
     const getLocationOccurences = (array, value) => {
+      // checking string values as array checking needs deep equality
       return array.filter(v => v === value).length
     }
 
@@ -36,9 +39,39 @@ class Grid {
         }
       })
     }
+
     // clean array
     houses = houses.filter(house => house !== undefined)
 
+    return houses
+  }
+
+  validateHouseLocationsAgainstGridSize = houses => {
+    const gridSize = this.getGridSize()
+
+    houses.map(house => {
+      const location = house.getLocation()
+
+      if (gridSize.length > 0 && location.length > 0) {
+        let outofBounds = false
+        const biggestNumber =
+          location[0] > location[1] ? location[0] : location[1]
+
+        gridSize.map(boundary => {
+          outofBounds = biggestNumber > boundary ? true : false
+        })
+
+        if (outofBounds) {
+          throw new Error(
+            `A House or Houses are outside the delivery area of PizzaBot. PizzaBot wants you to eat the delicious pizza but I'm afraid PizzaBot can't help you`
+          )
+        }
+      } else {
+        throw new Error(
+          `Grid Size and Location arrays are not populated correctly.`
+        )
+      }
+    })
     return houses
   }
 
@@ -46,17 +79,7 @@ class Grid {
     return this.size
   }
 
-  setGridSize = size => {
-    this.size = size
-    return this.size
-  }
-
   getHouses = () => {
-    return this.houses
-  }
-
-  setHouses = houses => {
-    this.houses = houses
     return this.houses
   }
 }

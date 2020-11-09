@@ -13,17 +13,7 @@ class House {
     return this.location
   }
 
-  setLocation = location => {
-    this.location = location
-    return this.location
-  }
-
   getNumberOfPizzasOrdered = () => {
-    return this.numberOfPizzasOrdered
-  }
-
-  setNumberOfPizzasOrdered = numberOfPizzasOrdered => {
-    this.numberOfPizzasOrdered = numberOfPizzasOrdered
     return this.numberOfPizzasOrdered
   }
 

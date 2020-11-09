@@ -7,19 +7,6 @@ beforeAll(() => {
 })
 
 /**
- * Setup Tests
- */
-
-test(`should setup the PizzaBot object with argument instructions`, () => {
-  const pizzabot = new PizzaBot(args)
-  expect(pizzabot.Grid.size).toEqual([5, 5])
-  expect(pizzabot.currentLocation).toEqual([0, 0])
-  expect(pizzabot.outputLogInstructions).toBe(
-    'DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD'
-  )
-})
-
-/**
  * Method Tests
  */
 
@@ -44,8 +31,6 @@ test(`should test to see PizzaBot's validateInstructions method throws an error 
 //     new PizzaBot(test_args)
 //   }).toThrowError(/not provided locations/)
 // })
-
-test(`should test`, () => {})
 
 /**
  * Delivery Tests

@@ -29,7 +29,7 @@ class PizzaBot {
   validateInstructions = instructions => {
     const message = `Please provide instructions in the following format "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
 
-    // Check that instructions are not empty.
+    // Check that grid and location details are not empty.
     if (!instructions) {
       throw new Error(
         `Sorry you have not provided any instructions for PizzaBot. PizzaBot sad. 
@@ -37,7 +37,7 @@ class PizzaBot {
       )
     }
 
-    // Sanitize instructions.
+    // Sanitize grid and location details.
     const sanitizedInstructions = instructions
       .trim()
       .replace(/ /g, '')
@@ -65,7 +65,7 @@ class PizzaBot {
         sanitizedInstructions.length - 1
       )
 
-    // Throw error if instructions are not in the correct format.
+    // Throw error if the locations are not in the correct format.
     if (
       locations.match(/(?:\([0-9]*,[0-9]*\))+/)[0].length !== locations.length
     ) {
@@ -162,7 +162,7 @@ class PizzaBot {
     const diff =
       house.getNumberOfPizzasOrdered() - house.getNumberOfPizzasReceived()
 
-    // Update household with number of pizzas delivered
+    // Update House with number of pizzas delivered
     house.setNumberOfPizzasReceived(diff)
 
     // Update PizzaBot's delivery log

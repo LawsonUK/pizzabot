@@ -63,7 +63,7 @@ class Grid {
 
         if (outofBounds) {
           throw new Error(
-            `A House or Houses are outside the delivery area of PizzaBot. PizzaBot wants you to eat the delicious pizza but I'm afraid PizzaBot can't help you`
+            `House(s) are outside the delivery area of PizzaBot. PizzaBot wants you to eat the delicious pizza but I'm afraid PizzaBot can't help you`
           )
         }
       } else {

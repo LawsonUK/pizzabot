@@ -5,7 +5,11 @@
   "main": "run.js",
   "scripts": {
     "pizzabot": "node run-pizzabot.js \"5x5 (0, 0) (1, 3) (4,4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)\"",
-    "test": "jest"
+    "test": "jest",
+    "build": "npm install"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "author": "",
   "license": "ISC",

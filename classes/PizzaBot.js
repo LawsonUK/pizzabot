@@ -19,6 +19,7 @@ class PizzaBot {
 
     // PizzaBot...show the good work you have done for Slice
     this.displayPizzaBotInstructions()
+    this.resetPizzaBotLocation()
   }
 
   validateInstructions = instructions => {
@@ -60,11 +61,12 @@ class PizzaBot {
         sanitizedInstructions.length - 1
       )
 
-    // throw error if instructions are not in the correct format
-    // TODO fix regex
-    if (!locations.match(/(?:\([0-9]*,[0-9]*\))+/)) {
+    // throw error if instructions are not in the correct format.
+    if (
+      locations.match(/(?:\([0-9]*,[0-9]*\))+/)[0].length !== locations.length
+    ) {
       throw new Error(
-        `Sorry you have not provided locations to PizzaBot in the correct format. PizzaBot just wants to work.
+        `Sorry you have not provided locations to PizzaBot in the correct format. You need to work with PizzaBot here.
         ${message}`
       )
     }
@@ -95,16 +97,18 @@ class PizzaBot {
   }
 
   go = () => {
-    this.Grid.getHouses().map(house => {
-      // you're not at the location yet PizzaBot
-      if (house.getLocation.toString() !== this.currentLocation.toString()) {
-        this.move(house)
-      }
+    this.getGrid()
+      .getHouses()
+      .map(house => {
+        // you're not at the location yet PizzaBot
+        if (house.getLocation.toString() !== this.currentLocation.toString()) {
+          this.move(house)
+        }
 
-      // deliver those delicious Slice pizzas PizzaBot
-      house.getLocation().toString() === this.currentLocation.toString() &&
-        this.deliverPizza(house)
-    })
+        // deliver those delicious Slice pizzas PizzaBot
+        house.getLocation().toString() === this.currentLocation.toString() &&
+          this.deliverPizza(house)
+      })
   }
 
   move = house => {
@@ -163,11 +167,22 @@ class PizzaBot {
 
   updateOutputLogInstructions = instructionString => {
     this.outputLogInstructions += instructionString
+    return this.outputLogInstructions
   }
 
   displayPizzaBotInstructions = () => {
-    console.log(`PizzaBot Instructions: ${this.outputLogInstructions}`)
+    const message = `PizzaBot Instructions: ${this.getOutputLogInstructions()}`
+    console.log(message)
+    return message
+  }
+
+  getOutputLogInstructions = () => {
+    return this.outputLogInstructions
+  }
+
+  resetPizzaBotLocation = () => {
     this.setCurrentLocation([0, 0])
+    return this.getCurrentLocation()
   }
 
   getCurrentLocation = () => {
@@ -177,6 +192,10 @@ class PizzaBot {
   setCurrentLocation = location => {
     this.currentLocation = location
     return this.currentLocation
+  }
+
+  getGrid = () => {
+    return this.Grid
   }
 }
 

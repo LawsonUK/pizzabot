@@ -7,22 +7,22 @@ test(`should setup the House object with default values`, () => {
   expect(house.numberOfPizzasReceived).toBe(0)
 })
 
-test(`should test to see if House method getLocation return array of coords`, () => {
+test(`should return array of House coords`, () => {
   const house = new House([1, 2])
   expect(house.getLocation()).toEqual([1, 2])
 })
 
-test(`should test to see if House method getNumberOfPizzasOrdered returns the same value past from the constructor parameter`, () => {
+test(`should return the same number of pizzas, which are past to the constructor parameter`, () => {
   const house = new House([1, 2], 3)
   expect(house.getNumberOfPizzasOrdered()).toBe(3)
 })
 
-test(`should test to see if House method getNumberOfPizzasReceived returns the same value past from the constructor parameter`, () => {
+test(`should return the same number of pizzas received, which are past to the constructor parameter`, () => {
   const house = new House([1, 2], 1, 1)
   expect(house.getNumberOfPizzasReceived()).toBe(1)
 })
 
-test(`should test to see if House method setNumberOfPizzasReceived updates the House property numberOfPizzasReceived`, () => {
+test(`should update the House property numberOfPizzasReceived`, () => {
   const house = new House([1, 2], 1, 1)
   expect(house.setNumberOfPizzasReceived(2)).toBe(2)
 })

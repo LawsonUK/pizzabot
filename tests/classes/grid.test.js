@@ -6,22 +6,28 @@ test(`should setup the Grid object with default values`, () => {
   expect(grid.getHouses().length).toBe(0)
 })
 
-test(`should test the Grid method createHousesWithOrders to ensure it is parsing an array of string locations correctly. 4 locations with 2 locations being the same, therefore 3 houses`, () => {
+test(`should return an array 3 Houses. 4 locations with 2 locations being the same, therefore 3 houses`, () => {
   const grid = new Grid([5, 5], ['(1,3)', '(2,2)', '(2,2)', '(4,4)'])
   expect(grid.getHouses().length).toBe(3)
 })
 
-test(`should test the Grid method getGridSize to ensure the correct grid size is stored from what is passed through the constructor`, () => {
+test(`should return the correct grid size is stored from what is passed through to the constructor`, () => {
   const grid = new Grid([5, 5], ['(1,3)', '(2,2)', '(2,2)', '(4,4)'])
   expect(grid.getGridSize()).toEqual([5, 5])
 })
 
-test(`should test the Grid method getHouses to ensure the correct amount of House objects have been stored from method createHousesWithOrders`, () => {
-  const grid = new Grid([5, 5], ['(1,3)', '(2,2)', '(2,2)', '(4,4)'])
-  expect(grid.getHouses().length).toBe(3)
+test(`should return an array of 3 Houses, which have been created by calling the method createHousesWithOrders`, () => {
+  const grid = new Grid()
+  const houses = grid.createHousesWithOrders([
+    '(1,3)',
+    '(2,2)',
+    '(2,2)',
+    '(4,4)',
+  ])
+  expect(houses.length).toBe(3)
 })
 
-test(`should test the Grid method validateHouseLocationsAgainstGridSize to ensure that instructions, which specify a location outside of the grid cannot be process`, () => {
+test(`should throw an error if a location is outside the boundary of the Grid`, () => {
   expect(() => {
     new Grid([5, 5], ['(1,6)', '(2,2)', '(2,2)', '(4,4)'])
   }).toThrowError(/outside the delivery area/)

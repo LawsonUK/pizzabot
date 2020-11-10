@@ -1,5 +1,9 @@
 const Grid = require('../../classes/grid')
 
+/**
+ * Method Tests
+ */
+
 test(`should setup the Grid object with default values`, () => {
   const grid = new Grid()
   expect(grid.getGridSize()).toEqual([5, 5])
@@ -26,6 +30,10 @@ test(`should return an array of 3 Houses, which have been created by calling the
   ])
   expect(houses.length).toBe(3)
 })
+
+/**
+ * Validation Tests
+ */
 
 test(`should throw an error if a location is outside the boundary of the Grid`, () => {
   expect(() => {

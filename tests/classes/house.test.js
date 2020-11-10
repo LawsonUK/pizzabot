@@ -1,5 +1,9 @@
 const House = require('../../classes/house')
 
+/**
+ * Method Tests
+ */
+
 test(`should setup the House object with default values`, () => {
   const house = new House()
   expect(house.location).toBe(null)

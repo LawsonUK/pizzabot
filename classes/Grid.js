@@ -10,7 +10,7 @@ class Grid {
 
   createHousesWithOrders = (locations = []) => {
     const getLocationOccurences = (array, value) => {
-      // checking string values as array checking needs deep equality
+      // Checking string values as array checking needs deep equality
       return array.filter(v => v === value).length
     }
 
@@ -18,15 +18,15 @@ class Grid {
     let locationsChecked = []
     if (locations.length > 0) {
       houses = locations.map(location => {
-        // find how many times the location is mentioned to get the household's order amount
+        // Find how many times the location is mentioned to get the household's order amount
         const numberOfPizzasOrdered = getLocationOccurences(locations, location)
 
-        // check if location is in locations checked array
+        // Check if location is in locations checked array
         if (getLocationOccurences(locationsChecked, location) === 0) {
           locationsChecked.push(location)
 
           return new House(
-            // format string into array containing integers
+            // Format string into array containing integers
             Array.from(
               location
                 .replace(/\(/, '')
@@ -40,7 +40,7 @@ class Grid {
       })
     }
 
-    // clean array
+    // Clean array
     houses = houses.filter(house => house !== undefined)
 
     return houses

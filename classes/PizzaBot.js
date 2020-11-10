@@ -5,10 +5,12 @@ class PizzaBot {
   outputLogInstructions = ''
 
   constructor(gridAndLocations) {
+    // Process the command line arguments PizzaBot.
     const formattedInstructions = this.formatInstructions(
       this.validateInstructions(gridAndLocations)
     )
 
+    // Generate the Grid and plot the Houses PizzaBot.
     this.Grid = new Grid(
       formattedInstructions.gridSize,
       formattedInstructions.locations
@@ -17,15 +19,17 @@ class PizzaBot {
     // The Grid is setup and the Houses needing pizza are identified...PizzaBot assemble!
     this.go()
 
-    // PizzaBot...show the good work you have done for Slice
+    // PizzaBot...show the good work you have done for Slice.
     this.displayPizzaBotInstructions()
+
+    // Job well done PizzaBot, return to base.
     this.resetPizzaBotLocation()
   }
 
   validateInstructions = instructions => {
-    const message = `Please provide instructions as follows "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
+    const message = `Please provide instructions in the following format "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
 
-    // check that instructions are not empty
+    // Check that instructions are not empty.
     if (!instructions) {
       throw new Error(
         `Sorry you have not provided any instructions for PizzaBot. PizzaBot sad. 
@@ -33,19 +37,19 @@ class PizzaBot {
       )
     }
 
-    // sanitize instructions
+    // Sanitize instructions.
     const sanitizedInstructions = instructions
       .trim()
       .replace(/ /g, '')
       .toLowerCase()
 
-    // get grid size from the argument string
+    // Get grid size from the argument string.
     const gridSize = sanitizedInstructions.substr(
       0,
       sanitizedInstructions.indexOf('(')
     )
 
-    // throw error if grid size is not in the correct format
+    // Throw error if grid size is not in the correct format.
     if (!gridSize.match(/^[0-9]*x[0-9]*/)) {
       throw new Error(
         `Sorry you have not provided a grid size to PizzaBot in the correct format. PizzaBot very sad. 
@@ -53,7 +57,7 @@ class PizzaBot {
       )
     }
 
-    // retrieve locations
+    // Retrieve locations
     const locations = sanitizedInstructions
       .trim()
       .substr(
@@ -61,7 +65,7 @@ class PizzaBot {
         sanitizedInstructions.length - 1
       )
 
-    // throw error if instructions are not in the correct format.
+    // Throw error if instructions are not in the correct format.
     if (
       locations.match(/(?:\([0-9]*,[0-9]*\))+/)[0].length !== locations.length
     ) {
@@ -84,6 +88,8 @@ class PizzaBot {
       .split('x')
       .map(coord => parseInt(coord))
 
+    // Keeping the locations in string format for now until the Grid
+    // method createHousesWithOrders converts them to arrays
     const locations = validatedInstructions.locations
       .replace(/\)\(/g, ') (')
       .split(' ')
@@ -100,12 +106,12 @@ class PizzaBot {
     this.getGrid()
       .getHouses()
       .map(house => {
-        // you're not at the location yet PizzaBot
+        // You're not at the location yet PizzaBot..keep going!
         if (house.getLocation.toString() !== this.currentLocation.toString()) {
           this.move(house)
         }
 
-        // deliver those delicious Slice pizzas PizzaBot
+        // Deliver those delicious Slice pizzas PizzaBot
         house.getLocation().toString() === this.currentLocation.toString() &&
           this.deliverPizza(house)
       })
@@ -156,10 +162,10 @@ class PizzaBot {
     const diff =
       house.getNumberOfPizzasOrdered() - house.getNumberOfPizzasReceived()
 
-    // update household with number of pizzas delivered
+    // Update household with number of pizzas delivered
     house.setNumberOfPizzasReceived(diff)
 
-    // update PizzaBot's delivery log
+    // Update PizzaBot's delivery log
     for (let i = 0; i < diff; i++) {
       this.updateOutputLogInstructions('D')
     }

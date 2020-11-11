@@ -14,7 +14,7 @@ If you would like to run the suite of tests then run the following command `npm 
 
 ## Assumptions
 
-- The command line input string argument must be contained within double quotes as shown in the example found in the Slice Code Challenge PDF `./ pizzabot "5x5 (1, 3) (4, 4)"`.
+- The command line input string argument must be contained within double quotes.
 - An input string, which has a location outside of the grid, will cause a validation error.
 - Duplicate locations indicate a house, which has ordered more than one pizza.
 - Route optimisation is not required.

@@ -10,12 +10,12 @@ test(`should setup the Grid object with default values`, () => {
   expect(grid.getHouses().length).toBe(0)
 })
 
-test(`should return an array 3 Houses. 4 locations with 2 locations being the same, therefore 3 houses`, () => {
+test(`should return an array of 3 Houses. 4 locations with 2 locations being the same, therefore 3 houses`, () => {
   const grid = new Grid([5, 5], ['(1,3)', '(2,2)', '(2,2)', '(4,4)'])
   expect(grid.getHouses().length).toBe(3)
 })
 
-test(`should return the correct grid size is stored from what is passed through to the constructor`, () => {
+test(`should return the same grid size from what is passed through to the constructor`, () => {
   const grid = new Grid([5, 5], ['(1,3)', '(2,2)', '(2,2)', '(4,4)'])
   expect(grid.getGridSize()).toEqual([5, 5])
 })

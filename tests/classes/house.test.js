@@ -11,7 +11,7 @@ test(`should setup the House object with default values`, () => {
   expect(house.numberOfPizzasReceived).toBe(0)
 })
 
-test(`should return array of House coords`, () => {
+test(`should return an array of House coords`, () => {
   const house = new House([1, 2])
   expect(house.getLocation()).toEqual([1, 2])
 })

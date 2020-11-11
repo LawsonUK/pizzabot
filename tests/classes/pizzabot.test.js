@@ -108,13 +108,13 @@ test(`should get the PizzaBot Grid`, () => {
  */
 
 // Example Test
-test(`should output ENNNDEEEND, using input string of "5x5 (1, 3) (4, 4)"`, () => {
+test(`should output ENNNDEEEND, using input string "5x5 (1, 3) (4, 4)"`, () => {
   const pizzaBot = new PizzaBot(args2)
   expect(pizzaBot.outputLogInstructions).toBe('ENNNDEEEND')
 })
 
 // Code Challenge Test
-test(`should output DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD, using input string of "5x5 (0, 0) (1, 3) (4,4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`, () => {
+test(`should output DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD, using input string "5x5 (0, 0) (1, 3) (4,4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`, () => {
   const pizzaBot = new PizzaBot(args)
   expect(pizzaBot.outputLogInstructions).toBe(
     'DENNNDEEENDSSDDWWWWSDEEENDWNDEESSD'

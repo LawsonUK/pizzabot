@@ -29,7 +29,7 @@ class PizzaBot {
   validateInstructions = instructions => {
     const message = `Please provide instructions in the following format "5x5 (0, 0) (1, 3) (4, 4) (4, 2) (4, 2) (0, 1) (3, 2) (2, 3) (4, 1)"`
 
-    // Check that grid and location details are not empty.
+    // Check that the grid and location details are not empty.
     if (!instructions) {
       throw new Error(
         `Sorry you have not provided any instructions for PizzaBot. PizzaBot sad. 
@@ -89,7 +89,8 @@ class PizzaBot {
       .map(coord => parseInt(coord))
 
     // Keeping the locations in string format for now until the Grid
-    // method createHousesWithOrders converts them to arrays
+    // method createHousesWithOrders converts them to arrays, easier
+    // to match strings than arrays
     const locations = validatedInstructions.locations
       .replace(/\)\(/g, ') (')
       .split(' ')
